@@ -1,0 +1,68 @@
+# Feature specification for crop-contextual-recommender.
+#
+# The registry check in `recommender.features.registry` asserts this file and
+# the implementation agree in BOTH directions: a transform cannot be computed
+# without being declared, and a declaration cannot go unimplemented.
+#
+# Fields
+#   family     context -> per-round soil/climate standardisation.
+#              item    -> per-arm (crop) statistics.
+#   fit_on     train_only -> fitted strictly on the training replay stream.
+#   fill       Value substituted when a statistic cannot be computed.
+#   rationale  Why the feature exists.
+
+version: 1
+dataset: crop_recommendation
+
+features:
+  - name: context_zscore
+    family: context
+    dtype: float64
+    transform: context_zscore
+    fit_on: train_only
+    fill:
+      zero_variance: 1.0
+    rationale: >
+      N, P, K, temperature, humidity, pH and rainfall are on very different
+      scales; LinUCB's ridge regression assumes a roughly isotropic prior,
+      so every context vector is standardised with mean/std fitted strictly
+      on the training replay stream before it reaches the bandit.
+
+  - name: arm_feasible_range
+    family: item
+    dtype: object
+    transform: arm_feasible_range
+    fit_on: train_only
+    fill:
+      unseen_arm: "always_feasible"
+    rationale: >
+      Per-crop (min, max) observed for each raw soil/climate variable in
+      training, expanded by a tolerance margin. This is the agronomic
+      constraint: an arm (crop) is only offered to LinUCB for a round if
+      the round's context falls inside its feasible range, which is what
+      turns plain LinUCB into *constrained* LinUCB.
+
+  - name: arm_popularity
+    family: item
+    dtype: float64
+    transform: arm_popularity
+    fit_on: train_only
+    fill:
+      unseen_arm: 0.0
+    rationale: >
+      Training-time frequency of each crop. Used as the non-contextual
+      popularity baseline and to measure how much the contextual, 
+      constrained policy deviates from simply recommending common crops.
+
+  - name: arm_context_centroid
+    family: item
+    dtype: object
+    transform: arm_context_centroid
+    fit_on: train_only
+    fill:
+      unseen_arm: "global_mean"
+    rationale: >
+      Mean raw soil/climate vector observed for each crop in training.
+      Purely descriptive (reported in the paper and the README) — it is
+      never read by the bandit itself, only by the constraint range which
+      is built independently from the same training rounds.

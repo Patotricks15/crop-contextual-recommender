@@ -1,0 +1,10 @@
+\section{Dataset}
+The Crop Recommendation dataset (Kaggle ref
+\texttt{atharvaingle/crop-recommendation-dataset}) contains soil nutrient
+levels (N, P, K), temperature, humidity, pH, and rainfall, each row labelled
+with the crop an agronomist recommends for those conditions, across 22
+crop types. Following the standard technique for turning a labelled
+classification dataset into an offline contextual-bandit replay log
+\cite{li2011unbiased}, each row becomes one round: the context is the
+soil/climate vector, and the simulated reward for choosing arm $a$ is $1$
+iff $a$ equals the row's logged crop.

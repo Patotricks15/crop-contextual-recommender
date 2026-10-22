@@ -1,0 +1,12 @@
+\section{Experimental protocol}
+Rounds are shuffled once and split into training (70\%), validation (15\%)
+and test (15\%). The training partition is replayed in order as an online
+learning stream: the policy selects an arm, observes the simulated reward,
+and updates, round by round. Validation/test partitions are then replayed
+with the policy frozen (no further updates), reporting match rate (the
+simulated reward rate) and regret ($1 - \text{match rate}$) against an
+oracle that always matches. We compare constrained LinUCB, plain LinUCB,
+a context-blind random policy, and an epsilon-greedy popularity baseline,
+and separately report the online learning curve (mean reward over the
+first 25, 100, and all training rounds) for constrained versus plain
+LinUCB, which isolates how much the constraint reduces exploration cost.
