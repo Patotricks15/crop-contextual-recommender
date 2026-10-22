@@ -1,0 +1,31 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,hyperref}
+\title{Constrained LinUCB for Crop Recommendation under Agronomic Feasibility Rules}
+\author{Patrick Gomes de Oliveira}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+We frame crop recommendation as a contextual bandit over soil and climate
+readings, with the recommendable crop as the arm and agreement with an
+agronomist's logged choice as the simulated reward. A disjoint linear
+LinUCB model (Li et al., 2010) is restricted at every round to the subset
+of crops whose agronomic feasible range, estimated from training data,
+contains the current context -- turning plain LinUCB into \emph{constrained}
+LinUCB. We measure both generalisation (held-out match rate and regret) and
+online learning speed, and find that the agronomic constraint sharply
+reduces the exploration cost of learning, at a small, measurable risk of
+excluding the true crop when a test context is an outlier relative to its
+own training distribution.
+\end{abstract}
+\input{sections/01-introduction}
+\input{sections/02-dataset}
+\input{sections/03-feature-engineering}
+\input{sections/04-methodology}
+\input{sections/05-experiments}
+\input{sections/06-results}
+\input{sections/07-conclusion}
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

@@ -1,0 +1,37 @@
+\section{Methodology}
+
+\subsection{LinUCB}
+For each arm $a$, LinUCB maintains a ridge-regression posterior
+
+\begin{equation}
+  A_a = I_d + \sum_{t:\, a_t = a} x_t x_t^\top, \qquad
+  b_a = \sum_{t:\, a_t = a} r_t x_t,
+  \label{eq:linucb-posterior}
+\end{equation}
+
+with point estimate $\theta_a = A_a^{-1} b_a$. The upper-confidence-bound
+score for context $x$ under arm $a$ is
+
+\begin{equation}
+  p_a(x) = x^\top \theta_a + \alpha \sqrt{x^\top A_a^{-1} x},
+  \label{eq:linucb-score}
+\end{equation}
+
+where the second term is an exploration bonus proportional to the model's
+remaining uncertainty about $x$ under arm $a$'s posterior, and $\alpha$
+controls the explore/exploit trade-off. Both $A_a$ and $b_a$ are updated in
+closed form after every round; no gradient descent is involved.
+
+\subsection{Agronomic constraint}
+Let $R_a = \{(\ell_{a,j}, u_{a,j})\}_{j=1}^{7}$ be crop $a$'s training-time
+feasible range (Section~3) for each raw feature $j$. At round $t$ with raw
+context $\tilde{x}_t$, the feasible arm set is
+
+\begin{equation}
+  \mathcal{F}_t = \{a : \ell_{a,j} \le \tilde{x}_{t,j} \le u_{a,j} \ \forall j\}.
+  \label{eq:feasible-set}
+\end{equation}
+
+\emph{Constrained} LinUCB selects $\arg\max_{a \in \mathcal{F}_t} p_a(x_t)$;
+plain LinUCB selects over every arm. If $\mathcal{F}_t = \emptyset$, every
+arm is treated as feasible rather than leaving the policy with no action.

@@ -1,0 +1,11 @@
+\section{Feature engineering}
+Features are declared in \texttt{conf/features.yaml}.
+\texttt{context\_zscore} standardises the seven raw soil/climate features,
+fitted strictly on the training replay stream, since LinUCB's ridge prior
+assumes a roughly isotropic scale. \texttt{arm\_feasible\_range} computes,
+per crop, the training-time observed (min, max) of every raw feature
+expanded by an 8\% tolerance margin -- this is the agronomic constraint
+table. \texttt{arm\_popularity} and \texttt{arm\_context\_centroid} are
+training-only descriptive statistics used by the popularity baseline and
+reported for interpretability. A registry check asserts the YAML
+specification and the Python implementation agree in both directions.

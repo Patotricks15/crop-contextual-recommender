@@ -1,0 +1,67 @@
+<mxfile host="Drawpyo" modified="2026-10-22T08:31:07" agent="Python 3.12, Drawpyo 0.23" version="21.6.5" type="device">
+  <diagram name="AWS architecture" id="130706827430992">
+    <mxGraphModel dx="2037" dy="830" grid="1" gridSize="10" guides="1" toolTips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="130706824547360" value="Offline — scheduled replay training" style="whiteSpace=wrap;rounded=1;fillColor=#FFF4E6;strokeColor=#D45B07;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="30" y="20" width="480" height="36" as="geometry" />
+</mxCell>
+        <mxCell id="130706824696256" value="Online — stateless scoring (p99 &lt; 50 ms)" style="whiteSpace=wrap;rounded=1;fillColor=#EEF2FF;strokeColor=#4D72F3;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="590" y="20" width="480" height="36" as="geometry" />
+</mxCell>
+        <mxCell id="130706824697168" value="Soil/climate rounds&#xa;N,P,K,temp,humidity,pH,rainfall" style="whiteSpace=wrap;rounded=1;fillColor=#FFFFFF;strokeColor=#9AA5B1;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="30" y="100" width="220" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="130706824697744" value="S3&#xa;raw" style="whiteSpace=wrap;rounded=0;fillColor=#277116;strokeColor=none;sketch=0;dashed=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bucket;" vertex="1" parent="1">
+  <mxGeometry x="320" y="90" width="78" height="78" as="geometry" />
+</mxCell>
+        <mxCell id="130706824698320" value="Lambda&#xa;LinUCB replay fit" style="whiteSpace=wrap;rounded=0;fillColor=#D45B07;strokeColor=none;sketch=0;dashed=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda_function;" vertex="1" parent="1">
+  <mxGeometry x="320" y="260" width="78" height="78" as="geometry" />
+</mxCell>
+        <mxCell id="130706824699136" value="EventBridge&#xa;scheduled trigger" style="whiteSpace=wrap;rounded=0;fillColor=#8C4FFF;strokeColor=none;sketch=0;dashed=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.event_time_based;" vertex="1" parent="1">
+  <mxGeometry x="90" y="260" width="78" height="78" as="geometry" />
+</mxCell>
+        <mxCell id="130706824699856" value="S3&#xa;policy.json (A, b, scaler)" style="whiteSpace=wrap;rounded=0;fillColor=#277116;strokeColor=none;sketch=0;dashed=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bucket;" vertex="1" parent="1">
+  <mxGeometry x="320" y="430" width="78" height="78" as="geometry" />
+</mxCell>
+        <mxCell id="130706824700720" value="Client&#xa;(soil/climate reading)" style="whiteSpace=wrap;rounded=0;fillColor=#4D72F3;strokeColor=none;sketch=0;dashed=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.client;" vertex="1" parent="1">
+  <mxGeometry x="620" y="90" width="78" height="78" as="geometry" />
+</mxCell>
+        <mxCell id="130706824701584" value="API Gateway" style="whiteSpace=wrap;rounded=0;fillColor=#8C4FFF;strokeColor=none;sketch=0;dashed=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+  <mxGeometry x="840" y="90" width="78" height="78" as="geometry" />
+</mxCell>
+        <mxCell id="130706824702400" value="Lambda&#xa;constrained scoring" style="whiteSpace=wrap;rounded=0;fillColor=#D45B07;strokeColor=none;sketch=0;dashed=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda_function;" vertex="1" parent="1">
+  <mxGeometry x="840" y="260" width="78" height="78" as="geometry" />
+</mxCell>
+        <mxCell id="130706824703216" value="CloudWatch&#xa;logs &amp; metrics" style="whiteSpace=wrap;rounded=0;fillColor=#8C4FFF;strokeColor=none;sketch=0;dashed=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;" vertex="1" parent="1">
+  <mxGeometry x="1030" y="430" width="78" height="78" as="geometry" />
+</mxCell>
+        <mxCell id="130706824704080" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824697168" target="130706824697744" value="ingest">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824704896" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824699136" target="130706824698320" value="cron">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824705040" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824697744" target="130706824698320" value="read">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824705184" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824698320" target="130706824699856" value="publish policy">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824705328" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824700720" target="130706824701584" value="GET /recommend">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824705472" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824701584" target="130706824702400" value="invoke">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824705616" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824699856" target="130706824702400" value="GetObject (cold start)">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824705760" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824702400" target="130706824703216" value="emit">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

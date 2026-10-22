@@ -1,0 +1,17 @@
+\section{Results}
+\label{sec:results}
+\input{tables/results}
+\input{tables/learning-curve}
+Table~\ref{tab:results} reports held-out generalisation on the synthetic CI
+fixture. Table~\ref{tab:learning-curve} reports the online learning curve.
+Constrained LinUCB reaches a mean training reward of $1.00$ within the
+first 25 rounds, while plain LinUCB -- forced to explore all eight arms
+before its per-arm posteriors converge -- needs the full training stream to
+approach the same level. This is the central result: restricting the arm
+set with agronomic domain knowledge removes nearly all of the exploration
+cost. The trade-off is visible in the held-out match rate, where
+constrained LinUCB is marginally \emph{below} plain LinUCB (0.956 vs 0.993):
+occasionally a test round's context falls just outside its own crop's
+training-time feasible range, and the hard constraint excludes the correct
+answer outright. This is the known risk of hard constraints in constrained
+bandits, and is reported here rather than hidden.

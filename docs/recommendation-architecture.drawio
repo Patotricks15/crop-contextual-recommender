@@ -1,0 +1,61 @@
+<mxfile host="Drawpyo" modified="2026-10-22T08:31:07" agent="Python 3.12, Drawpyo 0.23" version="21.6.5" type="device">
+  <diagram name="Recommendation architecture" id="130706824697216">
+    <mxGraphModel dx="2037" dy="830" grid="1" gridSize="10" guides="1" toolTips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="130706824706000" value="Raw soil/climate round&#xa;N, P, K, temp, humidity, pH, rainfall" style="whiteSpace=wrap;rounded=1;fillColor=#F7FAFC;strokeColor=#9AA5B1;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="40" width="280" height="72" as="geometry" />
+</mxCell>
+        <mxCell id="130706824706336" value="Simulated bandit reward&#xa;reward = 1 iff arm == logged crop" style="whiteSpace=wrap;rounded=1;fillColor=#FFF4E6;strokeColor=#D45B07;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="158" width="280" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="130706824706912" value="Row-level random holdout&#xa;train = replay stream" style="whiteSpace=wrap;rounded=1;fillColor=#FFF4E6;strokeColor=#D45B07;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="276" width="280" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="130706824707488" value="Context z-score + arm feasible range&#xa;fit on training rounds only" style="whiteSpace=wrap;rounded=1;fillColor=#E6FFFA;strokeColor=#277116;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="394" width="280" height="72" as="geometry" />
+</mxCell>
+        <mxCell id="130706824708064" value="Agronomic feasibility filter&#xa;exclude arms outside observed range" style="whiteSpace=wrap;rounded=1;fillColor=#EEF2FF;strokeColor=#4D72F3;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="527" width="280" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="130706824790624" value="LinUCB&#xa;theta_a = A_a^-1 b_a&#xa;UCB = x.theta + alpha*sqrt(x.A^-1.x)" style="whiteSpace=wrap;rounded=1;fillColor=#EEF2FF;strokeColor=#4D72F3;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="645" width="280" height="86" as="geometry" />
+</mxCell>
+        <mxCell id="130706824791152" value="Evaluation&#xa;online learning curve + frozen match rate/regret" style="whiteSpace=wrap;rounded=1;fillColor=#FFF5F5;strokeColor=#C53030;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="420" y="778" width="280" height="72" as="geometry" />
+</mxCell>
+        <mxCell id="130706824791728" value="Baselines&#xa;Random · Epsilon-greedy popularity" style="whiteSpace=wrap;rounded=1;fillColor=#FFFFFF;strokeColor=#9AA5B1;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="70" y="659" width="260" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="130706824792304" value="Policy serialization&#xa;A, b, scaler, ranges -&gt; JSON" style="whiteSpace=wrap;rounded=1;fillColor=#EEF2FF;strokeColor=#4D72F3;dashed=0;html=1;fontSize=11;fontColor=#232F3E;align=center;verticalAlign=middle;" vertex="1" parent="1">
+  <mxGeometry x="770" y="764" width="260" height="58" as="geometry" />
+</mxCell>
+        <mxCell id="130706824792880" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824706000" target="130706824706336" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824793408" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824706336" target="130706824706912" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824793552" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824706912" target="130706824707488" value="train only">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824793696" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824707488" target="130706824708064" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824793840" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824708064" target="130706824790624" value="feasible arms">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824793984" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824790624" target="130706824791152" value="chosen arm + reward">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824794128" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824791728" target="130706824790624" value="">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+        <mxCell id="130706824794272" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=1;jettySize=auto;" edge="1" parent="1" source="130706824790624" target="130706824792304" value="fitted policy">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

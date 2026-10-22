@@ -1,0 +1,14 @@
+\section{Limitations and conclusion}
+The simulated-reward protocol assumes every training row's logged crop is
+the single correct answer, which discards any ambiguity in genuinely
+multi-suitable soil/climate conditions. The feasible-range tolerance (8\%)
+is a fixed hyperparameter, not learned or validated against an agronomic
+source; a production system would consult domain experts or a larger
+reference table instead. The drug-recommendation project elsewhere in this
+portfolio similarly layers a hard safety constraint over a statistical
+model and warns against over-reliance on it; the same caution applies
+here; crop recommendations should support an agronomist's judgement, not
+replace it. Overall, constrained LinUCB demonstrates a clear, measurable
+benefit (learning speed) and a clear, measurable cost (occasional exclusion
+of the correct arm) from the same mechanism, which is a more honest result
+than either in isolation.

@@ -1,0 +1,11 @@
+\section{Introduction}
+Public crop-recommendation notebooks almost universally treat the problem
+as multi-class classification (random forests, gradient boosting). This
+project instead frames it as a \emph{contextual bandit}: a decision made
+under a single observed context with partial feedback, which is the
+realistic online setting for a system deployed to make one recommendation
+at a time and learn from whether it was accepted. LinUCB \cite{li2010linucb}
+is a classical, closed-form linear bandit with no gradient descent and no
+neural network; we add agronomic domain knowledge as a hard constraint on
+the arm set offered at each round, which is both a safety mechanism and, as
+Section~\ref{sec:results} shows, a substantial accelerant of learning.
